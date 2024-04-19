@@ -1,5 +1,9 @@
 #!/usr/bin/python3
 
+"""
+return the status
+"""
+
 from flask import Blueprint
 
 # Initialize Blueprint
