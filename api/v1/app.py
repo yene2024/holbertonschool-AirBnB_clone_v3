@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 from flask import Flask
 from models import storage
 from api.v1.views import app_views
@@ -8,7 +10,8 @@ app = Flask(__name__)
 # Register the blueprint app_views to your Flask instance app
 app.register_blueprint(app_views)
 
-# Declare a method to handle @app.teardown_appcontext that calls storage.close()
+
+# Declare a method to handle @app.teardown_appcontext
 @app.teardown_appcontext
 def teardown_db(exception):
     """
@@ -18,6 +21,7 @@ def teardown_db(exception):
         exception: The exception, if any, that occurred during the app context.
     """
     storage.close()
+
 
 if __name__ == "__main__":
     # Run your Flask server (variable app) with:
