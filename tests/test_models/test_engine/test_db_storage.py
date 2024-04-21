@@ -66,6 +66,10 @@ test_db_storage.py'])
                              "{:s} method needs a docstring".format(func[0]))
             self.assertTrue(len(func[1].__doc__) >= 1,
                             "{:s} method needs a docstring".format(func[0]))
+       
+    def setUpClass(cls):
+        """Set up for the doc tests"""
+        cls.dbs_f = inspect.getmembers(DBStorage, inspect.isfunction)
 
 
 class TestFileStorage(unittest.TestCase):
@@ -86,3 +90,11 @@ class TestFileStorage(unittest.TestCase):
     @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
     def test_save(self):
         """Test that save properly saves objects to file.json"""
+
+    @unittest.skipIf(models.storage_t != 'db', "not testing db storage")
+    def test_get(self):
+        """Test the get method of DBStorage."""
+
+    def test_count(self):
+        """Test the count method of DBStorage."""
+
