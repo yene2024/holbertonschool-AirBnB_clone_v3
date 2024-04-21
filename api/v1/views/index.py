@@ -1,25 +1,31 @@
 #!/usr/bin/python3
-
-"""
-Creating an endpoint that retrieves
-the number of each objects by type
-"""
+""" Creating an endpoint that retrieves the
+number of each objects by type """
 from flask import jsonify
-from flask import Blueprint
+from api.v1.views import app_views
 from models import storage
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
+from models.user import User
 
-app_views = Blueprint('app_views', __name__)
+
+@app_views.route('/status', methods=['GET'], strict_slashes=False)
+def status():
+    """ Gives status """
+    return jsonify({'status': 'OK'})
 
 
-@app_views.route('/stats', methods=['GET'])
-def get_stats():
-    """Retrieve the number of each object type."""
-    counts = {
-        'amenities': storage.count('Amenity'),
-        'cities': storage.count('City'),
-        'places': storage.count('Place'),
-        'reviews': storage.count('Review'),
-        'states': storage.count('State'),
-        'users': storage.count('User')
-    }
-    return jsonify(counts)
+@app_views.route('/stats', methods=['GET'], strict_slashes=False)
+def number_of_objects():
+    """ Gets the number of classes """
+    classes = [Amenity, City, Place, Review, State, User]
+    names = ["amenities", "cities", "places", "reviews", "states", "users"]
+
+    num_of_objs = {}
+    for cls in range(len(classes)):
+        num_of_objs[names[cls]] = storage.count(classes[cls])
+
+    return jsonify(num_of_objs)
