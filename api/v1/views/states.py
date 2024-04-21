@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """States API endpoints"""
 from flask import jsonify, abort, request, make_response
 from models import storage
