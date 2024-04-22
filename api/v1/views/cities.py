@@ -60,7 +60,7 @@ def create_city(state_id):
 @app_views.route("/cities/<city_id>", methods=["PUT"], strict_slashes=False)
 def update_city(city_id):
     """Update a City object."""
-    city = storage.get(State, state_id)
+    city = storage.get(City, city_id)
     if city is None:
         return jsonify({"error": "Not found"}), 404
     if not request.json:
